@@ -1,0 +1,42 @@
+{
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "记忆仓库",
+        "navigationBarBackgroundColor": "#007AFF",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/detail/detail",
+      "style": {
+        "navigationBarTitleText": "记忆详情",
+        "navigationBarBackgroundColor": "#007AFF",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/edit/edit",
+      "style": {
+        "navigationBarTitleText": "编辑记忆",
+        "navigationBarBackgroundColor": "#007AFF",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/search/search",
+      "style": {
+        "navigationBarTitleText": "搜索记忆",
+        "navigationBarBackgroundColor": "#007AFF",
+        "navigationBarTextStyle": "white"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "记忆仓库",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  }
+}
