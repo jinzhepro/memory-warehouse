@@ -65,5 +65,8 @@
     "@dcloudio/vite-plugin-uni": "3.0.0-4070620250821001",
     "@vue/runtime-core": "^3.4.21",
     "vite": "5.2.8"
+  },
+  "volta": {
+    "node": "22.20.0"
   }
 }
