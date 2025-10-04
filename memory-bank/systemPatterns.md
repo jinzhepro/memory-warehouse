@@ -54,6 +54,7 @@
 - **状态管理层**: Pinia
 - **数据存储层**: 微信小程序本地存储 API
 - **UI 组件层**: 原生组件 + 自定义样式
+- **样式系统层**: SCSS + 设计令牌系统
 - **构建工具**: Vite
 
 ## 关键技术决策
@@ -173,16 +174,126 @@ export default {
 };
 ```
 
+### 5. 设计令牌模式 (Design Tokens) - 新增
+
+```scss
+// styles/variables.scss
+// 统一的设计令牌系统
+$primary-color: #5b8dee;
+$spacing-xs: 8rpx;
+$font-base: 28rpx;
+$radius-md: 12rpx;
+$shadow-md: 0 4rpx 6rpx -1rpx rgba(0, 0, 0, 0.1);
+
+// 所有组件使用统一的设计令牌
+.card {
+  padding: $spacing-lg;
+  border-radius: $radius-md;
+  box-shadow: $shadow-md;
+}
+```
+
+### 6. 工具类模式 (Utility Classes) - 新增
+
+```scss
+// styles/utilities.scss
+// 原子化工具类系统
+.flex {
+  display: flex;
+}
+.items-center {
+  align-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.text-primary {
+  color: $text-primary;
+}
+.bg-primary {
+  background-color: $primary-color;
+}
+.p-md {
+  padding: $spacing-md;
+}
+.m-lg {
+  margin: $spacing-lg;
+}
+
+// 响应式工具类
+@media (max-width: $breakpoint-sm) {
+  .sm\:hidden {
+    display: none;
+  }
+  .sm\:text-center {
+    text-align: center;
+  }
+}
+```
+
+### 7. 微交互模式 (Micro-interactions) - 新增
+
+```scss
+// 统一的交互动画系统
+.card {
+  transition: all $transition-normal $ease-in-out;
+  &:hover {
+    transform: translateY(-2rpx);
+    box-shadow: $shadow-lg;
+  }
+}
+
+.btn-primary {
+  transition: all $transition-fast $ease-in-out;
+  &:active {
+    transform: scale(0.98);
+  }
+}
+```
+
+## 样式系统架构 - 新增
+
+### 设计令牌层次结构
+
+```
+styles/
+├── variables.scss          # 基础设计令牌
+│   ├── 色彩系统
+│   ├── 字体系统
+│   ├── 间距系统
+│   ├── 圆角系统
+│   └── 阴影系统
+├── utilities.scss          # 原子化工具类
+│   ├── 布局工具类
+│   ├── 间距工具类
+│   ├── 颜色工具类
+│   ├── 文字工具类
+│   └── 响应式工具类
+└── components/             # 组件样式 (预留)
+    ├── card.scss
+    ├── button.scss
+    └── input.scss
+```
+
+### 样式使用模式
+
+1. **设计令牌优先**: 所有样式值优先使用 variables.scss 中的令牌
+2. **工具类组合**: 使用 utilities.scss 中的原子类快速构建布局
+3. **组件样式**: 复杂组件使用独立的样式文件
+4. **响应式设计**: 统一的断点系统和响应式工具类
+
 ## 组件关系
 
 ### 页面组件层级
 
 ```
+
 App.vue (根组件)
 ├── pages/index/index.vue (首页)
 ├── pages/detail/detail.vue (详情页)
 ├── pages/edit/edit.vue (编辑页)
 └── pages/search/search.vue (搜索页)
+
 ```
 
 ### 数据流向
