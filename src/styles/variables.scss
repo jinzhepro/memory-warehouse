@@ -1,0 +1,178 @@
+/**
+ * 记忆仓库 - 全局样式变量
+ * 统一设计系统，确保视觉一致性
+ */
+
+/* ==================== 色彩系统 ==================== */
+
+/* 主色调 */
+$primary-color: #5b8dee;
+$primary-light: #7ba7f7;
+$primary-dark: #4a7ce6;
+$primary-gradient: linear-gradient(135deg, #5b8dee 0%, #7ba7f7 100%);
+
+/* 辅助色 */
+$secondary-color: #6c63ff;
+$accent-color: #ff6b6b;
+$success-color: #51cf66;
+$warning-color: #ffd93d;
+$error-color: #ff6b6b;
+
+/* 中性色 */
+$gray-50: #f8fafc;
+$gray-100: #f1f5f9;
+$gray-200: #e2e8f0;
+$gray-300: #cbd5e1;
+$gray-400: #94a3b8;
+$gray-500: #64748b;
+$gray-600: #475569;
+$gray-700: #334155;
+$gray-800: #1e293b;
+$gray-900: #0f172a;
+
+/* 文字颜色 */
+$text-primary: $gray-900;
+$text-secondary: $gray-600;
+$text-tertiary: $gray-500;
+$text-placeholder: $gray-400;
+$text-inverse: #ffffff;
+
+/* 背景色 */
+$bg-primary: #ffffff;
+$bg-secondary: $gray-50;
+$bg-tertiary: $gray-100;
+$bg-overlay: rgba(0, 0, 0, 0.5);
+
+/* 边框色 */
+$border-light: $gray-200;
+$border-medium: $gray-300;
+$border-dark: $gray-400;
+
+/* ==================== 字体系统 ==================== */
+
+/* 字体大小 */
+$font-xs: 20rpx; /* 10px */
+$font-sm: 24rpx; /* 12px */
+$font-base: 28rpx; /* 14px */
+$font-lg: 32rpx; /* 16px */
+$font-xl: 36rpx; /* 18px */
+$font-2xl: 40rpx; /* 20px */
+$font-3xl: 48rpx; /* 24px */
+$font-4xl: 56rpx; /* 28px */
+
+/* 字体粗细 */
+$font-light: 300;
+$font-normal: 400;
+$font-medium: 500;
+$font-semibold: 600;
+$font-bold: 700;
+
+/* 行高 */
+$line-height-tight: 1.2;
+$line-height-normal: 1.4;
+$line-height-relaxed: 1.6;
+$line-height-loose: 1.8;
+
+/* ==================== 间距系统 ==================== */
+
+/* 基础间距单位 */
+$spacing-xs: 8rpx; /* 4px */
+$spacing-sm: 16rpx; /* 8px */
+$spacing-md: 24rpx; /* 12px */
+$spacing-lg: 32rpx; /* 16px */
+$spacing-xl: 48rpx; /* 24px */
+$spacing-2xl: 64rpx; /* 32px */
+$spacing-3xl: 96rpx; /* 48px */
+
+/* ==================== 圆角系统 ==================== */
+
+$radius-xs: 4rpx; /* 2px */
+$radius-sm: 8rpx; /* 4px */
+$radius-md: 12rpx; /* 6px */
+$radius-lg: 16rpx; /* 8px */
+$radius-xl: 24rpx; /* 12px */
+$radius-2xl: 32rpx; /* 16px */
+$radius-full: 9999rpx;
+
+/* ==================== 阴影系统 ==================== */
+
+$shadow-xs: 0 1rpx 2rpx 0 rgba(0, 0, 0, 0.05);
+$shadow-sm: 0 1rpx 3rpx 0 rgba(0, 0, 0, 0.1), 0 1rpx 2rpx 0 rgba(0, 0, 0, 0.06);
+$shadow-md: 0 4rpx 6rpx -1rpx rgba(0, 0, 0, 0.1),
+  0 2rpx 4rpx -1rpx rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10rpx 15rpx -3rpx rgba(0, 0, 0, 0.1),
+  0 4rpx 6rpx -2rpx rgba(0, 0, 0, 0.05);
+$shadow-xl: 0 20rpx 25rpx -5rpx rgba(0, 0, 0, 0.1),
+  0 10rpx 10rpx -5rpx rgba(0, 0, 0, 0.04);
+$shadow-2xl: 0 25rpx 50rpx -12rpx rgba(0, 0, 0, 0.25);
+
+/* 特殊阴影 */
+$shadow-primary: 0 4rpx 20rpx rgba(91, 141, 238, 0.3);
+$shadow-success: 0 4rpx 20rpx rgba(81, 207, 102, 0.3);
+$shadow-warning: 0 4rpx 20rpx rgba(255, 217, 61, 0.3);
+$shadow-error: 0 4rpx 20rpx rgba(255, 107, 107, 0.3);
+
+/* ==================== 动画系统 ==================== */
+
+/* 过渡时间 */
+$transition-fast: 0.15s;
+$transition-normal: 0.3s;
+$transition-slow: 0.5s;
+
+/* 缓动函数 */
+$ease-in: cubic-bezier(0.4, 0, 1, 1);
+$ease-out: cubic-bezier(0, 0, 0.2, 1);
+$ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+/* ==================== 组件特定变量 ==================== */
+
+/* 卡片 */
+$card-padding: $spacing-lg;
+$card-radius: $radius-lg;
+$card-shadow: $shadow-md;
+$card-bg: $bg-primary;
+
+/* 按钮 */
+$button-height-sm: 64rpx;
+$button-height-md: 80rpx;
+$button-height-lg: 96rpx;
+$button-padding-sm: $spacing-sm $spacing-lg;
+$button-padding-md: $spacing-md $spacing-xl;
+$button-padding-lg: $spacing-lg $spacing-2xl;
+$button-radius: $radius-md;
+
+/* 输入框 */
+$input-height: 80rpx;
+$input-padding: $spacing-md $spacing-lg;
+$input-radius: $radius-md;
+$input-border: 1rpx solid $border-light;
+$input-focus-border: 2rpx solid $primary-color;
+
+/* 标签 */
+$tag-padding: $spacing-xs $spacing-sm;
+$tag-radius: $radius-full;
+$tag-font-size: $font-xs;
+
+/* 导航栏 */
+$navbar-height: 88rpx;
+$navbar-padding: $spacing-md $spacing-lg;
+
+/* 底部操作栏 */
+$action-bar-height: 120rpx;
+$action-bar-padding: $spacing-md $spacing-lg;
+
+/* ==================== 响应式断点 ==================== */
+
+$breakpoint-sm: 750rpx;
+$breakpoint-md: 992rpx;
+$breakpoint-lg: 1200rpx;
+
+/* ==================== Z-index 层级 ==================== */
+
+$z-dropdown: 1000;
+$z-sticky: 1020;
+$z-fixed: 1030;
+$z-modal-backdrop: 1040;
+$z-modal: 1050;
+$z-popover: 1060;
+$z-tooltip: 1070;
