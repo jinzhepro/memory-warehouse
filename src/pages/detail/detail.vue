@@ -1,23 +1,5 @@
 <template>
   <view class="container" v-if="memory">
-    <!-- 顶部导航栏 -->
-    <view class="navbar">
-      <view class="navbar-content">
-        <view class="nav-left" @click="goBack">
-          <text class="nav-icon">←</text>
-          <text class="nav-text">返回</text>
-        </view>
-        <view class="nav-center">
-          <text class="nav-title">记忆详情</text>
-        </view>
-        <view class="nav-right">
-          <view class="nav-more" @click="showMoreActions">
-            <text class="nav-icon">⋯</text>
-          </view>
-        </view>
-      </view>
-    </view>
-
     <!-- 记忆详情卡片 -->
     <view class="memory-detail-card">
       <!-- 卡片头部 -->
@@ -370,73 +352,8 @@ export default {
 .container {
   min-height: 100vh;
   background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+  padding-top: 32rpx;
   padding-bottom: 160rpx;
-}
-
-/* ==================== 顶部导航栏 ==================== */
-.navbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20rpx);
-  border-bottom: 1rpx solid rgba(226, 232, 240, 0.5);
-  padding-top: var(--status-bar-height, 44rpx); /* 状态栏高度适配 */
-}
-
-.navbar-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 24rpx 32rpx;
-  min-height: 88rpx;
-}
-
-.nav-left, .nav-right {
-  width: 120rpx;
-  display: flex;
-  align-items: center;
-}
-
-.nav-left {
-  justify-content: flex-start;
-}
-
-.nav-right {
-  justify-content: flex-end;
-}
-
-.nav-center {
-  flex: 1;
-  text-align: center;
-}
-
-.nav-icon {
-  font-size: 32rpx;
-  color: #5b8dee;
-  margin-right: 8rpx;
-}
-
-.nav-text {
-  font-size: 28rpx;
-  color: #5b8dee;
-  font-weight: 500;
-}
-
-.nav-title {
-  font-size: 32rpx;
-  font-weight: 600;
-  color: #0f172a;
-}
-
-.nav-more {
-  padding: 8rpx;
-  border-radius: 8rpx;
-  transition: background-color 0.2s;
-}
-
-.nav-more:hover {
-  background-color: #f1f5f9;
 }
 
 /* ==================== 记忆详情卡片 ==================== */

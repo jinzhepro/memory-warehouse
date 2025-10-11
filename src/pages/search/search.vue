@@ -515,7 +515,7 @@ export default {
 .header-decoration {
   position: relative;
   background: linear-gradient(135deg, #5b8dee 0%, #7ba7f7 100%);
-  padding: 92rpx 32rpx 64rpx; /* 44rpx状态栏 + 48rpx原padding */
+  padding: 48rpx 32rpx 64rpx;
   border-bottom-left-radius: 64rpx;
   border-bottom-right-radius: 64rpx;
   overflow: hidden;

@@ -11,19 +11,25 @@
     {
       "path": "pages/detail/detail",
       "style": {
-        "navigationStyle": "custom"
+        "navigationBarTitleText": "记忆详情",
+        "navigationBarBackgroundColor": "#5b8dee",
+        "navigationBarTextStyle": "white"
       }
     },
     {
       "path": "pages/edit/edit",
       "style": {
-        "navigationStyle": "custom"
+        "navigationBarTitleText": "编辑记忆",
+        "navigationBarBackgroundColor": "#5b8dee",
+        "navigationBarTextStyle": "white"
       }
     },
     {
       "path": "pages/search/search",
       "style": {
-        "navigationStyle": "custom"
+        "navigationBarTitleText": "搜索记忆",
+        "navigationBarBackgroundColor": "#5b8dee",
+        "navigationBarTextStyle": "white"
       }
     }
   ],
