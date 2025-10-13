@@ -13,7 +13,7 @@
     <view class="search-section">
       <view class="search-container">
         <view class="search-input-wrapper">
-          <text class="search-icon">🔍</text>
+          <uni-icons class="search-icon" type="search" size="16" color="#999"></uni-icons>
           <input 
             class="search-input" 
             placeholder="搜索记忆标题、内容或标签..." 
@@ -26,7 +26,7 @@
             v-if="searchKeyword"
             @click="clearSearch"
           >
-            ✕
+            <uni-icons type="closeempty" size="14" color="#999"></uni-icons>
           </view>
         </view>
         
@@ -43,9 +43,9 @@
               :key="item"
               @click="searchByKeyword(item)"
             >
-              <text class="search-history-icon">🕐</text>
+              <uni-icons class="search-history-icon" type="time" size="12" color="#999"></uni-icons>
               <text class="search-text">{{ item }}</text>
-              <text class="search-remove" @click.stop="removeFromHistory(item)">✕</text>
+              <uni-icons class="search-remove" type="closeempty" size="12" color="#999" @click.stop="removeFromHistory(item)"></uni-icons>
             </view>
           </view>
         </view>
@@ -60,7 +60,7 @@
           :class="{ active: activeFilter === 'all' }"
           @click="setFilter('all')"
         >
-          <text class="filter-icon">📚</text>
+          <uni-icons class="filter-icon" type="list" size="14" color="#666"></uni-icons>
           <text class="filter-text">全部</text>
           <text class="filter-count">{{ searchResults.length }}</text>
         </view>
@@ -69,7 +69,7 @@
           :class="{ active: activeFilter === 'title' }"
           @click="setFilter('title')"
         >
-          <text class="filter-icon">📝</text>
+          <uni-icons class="filter-icon" type="compose" size="14" color="#666"></uni-icons>
           <text class="filter-text">标题</text>
           <text class="filter-count">{{ getTitleResults().length }}</text>
         </view>
@@ -78,7 +78,7 @@
           :class="{ active: activeFilter === 'content' }"
           @click="setFilter('content')"
         >
-          <text class="filter-icon">📄</text>
+          <uni-icons class="filter-icon" type="document-text" size="14" color="#666"></uni-icons>
           <text class="filter-text">内容</text>
           <text class="filter-count">{{ getContentResults().length }}</text>
         </view>
@@ -87,7 +87,7 @@
           :class="{ active: activeFilter === 'tag' }"
           @click="setFilter('tag')"
         >
-          <text class="filter-icon">🏷️</text>
+          <uni-icons class="filter-icon" type="tag" size="14" color="#666"></uni-icons>
           <text class="filter-text">标签</text>
           <text class="filter-count">{{ getTagResults().length }}</text>
         </view>
@@ -154,7 +154,7 @@
       <!-- 无结果 -->
       <view class="no-results" v-if="getFilteredResults().length === 0">
         <view class="no-results-illustration">
-          <text class="no-results-emoji">🔍</text>
+          <uni-icons class="no-results-emoji" type="search" size="48" color="#ddd"></uni-icons>
         </view>
         <text class="no-results-title">没有找到相关记忆</text>
         <text class="no-results-description">试试其他关键词或检查拼写</text>
@@ -207,7 +207,7 @@
       <!-- 搜索提示 -->
       <view class="search-tips">
         <view class="tips-header">
-          <text class="tips-icon">💡</text>
+          <uni-icons class="tips-icon" type="lightbulb" size="16" color="#666"></uni-icons>
           <text class="tips-title">搜索小贴士</text>
         </view>
         <view class="tips-list">

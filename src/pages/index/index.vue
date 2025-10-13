@@ -13,7 +13,7 @@
     <view class="search-section">
       <view class="search-container">
         <view class="search-input-wrapper">
-          <text class="search-icon">🔍</text>
+          <uni-icons class="search-icon" type="search" size="16" color="#999"></uni-icons>
           <input 
             class="search-input" 
             placeholder="搜索记忆标题、内容或标签..." 
@@ -25,7 +25,7 @@
             v-if="searchKeyword"
             @click="clearSearch"
           >
-            ✕
+            <uni-icons type="closeempty" size="14" color="#999"></uni-icons>
           </view>
         </view>
         <view class="search-suggestions" v-if="!searchKeyword && allTags.length > 0">
@@ -53,7 +53,7 @@
             :class="{ active: activeTag === '' }"
             @click="filterByTag('')"
           >
-            <text class="tag-icon">📚</text>
+            <uni-icons class="tag-icon" type="list" size="14" color="#666"></uni-icons>
             <text class="tag-text">全部</text>
             <text class="tag-count">{{ memoryStore.memories.length }}</text>
           </view>
@@ -64,7 +64,7 @@
             :key="tag"
             @click="filterByTag(tag)"
           >
-            <text class="tag-icon">🏷️</text>
+            <uni-icons class="tag-icon" type="tag" size="14" color="#666"></uni-icons>
             <text class="tag-text">{{ tag }}</text>
             <text class="tag-count">{{ getTagCount(tag) }}</text>
           </view>
@@ -105,7 +105,7 @@
       <!-- 置顶记忆分组 -->
       <view v-if="pinnedMemories.length > 0">
         <!-- <view class="section-header">
-          <text class="section-title">📌 置顶记忆</text>
+          <text class="section-title"><uni-icons type="star-filled" size="14" color="#FFD700"></uni-icons> 置顶记忆</text>
           <text class="section-count">{{ pinnedMemories.length }} 条</text>
         </view> -->
         
@@ -129,7 +129,7 @@
                 class="pin-indicator"
                 @click.stop="togglePin(memory.id)"
               >
-                <text class="pin-icon">📌</text>
+                <uni-icons class="pin-icon" type="star-filled" size="16" color="#FFD700"></uni-icons>
               </view>
             </view>
           </view>
@@ -161,7 +161,8 @@
       <!-- 普通记忆分组 -->
       <view v-if="regularMemories.length > 0">
         <!-- <view class="section-header">
-          <text class="section-title">📝 普通记忆</text>
+          <uni-icons class="section-icon" type="compose" size="16" color="#666"></uni-icons>
+          <text class="section-title">普通记忆</text>
           <text class="section-count">{{ regularMemories.length }} 条</text>
         </view> -->
         
@@ -185,7 +186,7 @@
                 class="pin-button"
                 @click.stop="togglePin(memory.id)"
               >
-                <text class="pin-icon">📍</text>
+                <uni-icons class="pin-icon" type="star" size="16" color="#999"></uni-icons>
               </view>
             </view>
           </view>
@@ -217,7 +218,7 @@
       <!-- 空状态 -->
       <view class="empty-state" v-if="filteredMemories.length === 0">
         <view class="empty-illustration">
-          <text class="empty-emoji">📝</text>
+          <uni-icons class="empty-emoji" type="compose" size="48" color="#ddd"></uni-icons>
         </view>
         <text class="empty-title">{{ getEmptyTitle() }}</text>
         <text class="empty-description">{{ getEmptyDescription() }}</text>

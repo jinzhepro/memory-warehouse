@@ -8,29 +8,29 @@
           <view class="title-row">
             <text class="memory-title">{{ memory.title }}</text>
             <view class="pin-badge" v-if="memory.isPinned">
-              <text class="pin-badge-text">📌 置顶</text>
+              <text class="pin-badge-text"><uni-icons type="star-filled" size="12" color="#FFD700"></uni-icons> 置顶</text>
             </view>
           </view>
           <view class="memory-meta">
             <view class="meta-item">
-              <text class="meta-icon">🕐</text>
+              <uni-icons class="meta-icon" type="time" size="12" color="#999"></uni-icons>
               <text class="meta-text">创建于 {{ formatDateTime(memory.createTime) }}</text>
             </view>
             <view class="meta-item">
-              <text class="meta-icon">✏️</text>
+              <uni-icons class="meta-icon" type="edit" size="12" color="#999"></uni-icons>
               <text class="meta-text">更新于 {{ formatDateTime(memory.updateTime) }}</text>
             </view>
           </view>
         </view>
         <view class="header-decoration">
-          <text class="decoration-icon">📝</text>
+          <uni-icons class="decoration-icon" type="compose" size="24" color="#4A90E2"></uni-icons>
         </view>
       </view>
       
       <!-- 标签区域 -->
       <view class="tags-section" v-if="memory.tags && memory.tags.length > 0">
         <view class="section-title">
-          <text class="title-icon">🏷️</text>
+          <uni-icons class="title-icon" type="tag" size="14" color="#666"></uni-icons>
           <text class="title-text">标签</text>
         </view>
         <view class="memory-tags">
@@ -49,7 +49,7 @@
       <!-- 内容区域 -->
       <view class="content-section">
         <view class="section-title">
-          <text class="title-icon">📄</text>
+          <uni-icons class="title-icon" type="document-text" size="14" color="#666"></uni-icons>
           <text class="title-text">内容</text>
         </view>
         <view class="memory-content">
@@ -80,15 +80,15 @@
     <view class="action-bar">
       <view class="action-container">
         <button class="action-btn secondary-btn" @click="shareMemory">
-          <text class="btn-icon">📤</text>
+          <uni-icons class="btn-icon" type="redo" size="14" color="#666"></uni-icons>
           <text class="btn-text">分享</text>
         </button>
         <button class="action-btn primary-btn" @click="goToEdit">
-          <text class="btn-icon">✏️</text>
+          <uni-icons class="btn-icon" type="gear" size="14" color="#fff"></uni-icons>
           <text class="btn-text">编辑</text>
         </button>
         <button class="action-btn danger-btn" @click="handleDelete">
-          <text class="btn-icon">🗑️</text>
+          <uni-icons class="btn-icon" type="trash" size="14" color="#fff"></uni-icons>
           <text class="btn-text">删除</text>
         </button>
       </view>
@@ -100,24 +100,24 @@
         <view class="panel-header">
           <text class="panel-title">更多操作</text>
           <view class="panel-close" @click="hideMoreActions">
-            <text class="close-icon">✕</text>
+            <uni-icons class="close-icon" type="closeempty" size="16" color="#999"></uni-icons>
           </view>
         </view>
         <view class="action-list">
           <view class="action-item" @click="togglePin">
-            <text class="action-icon">{{ memory.isPinned ? '📌' : '📍' }}</text>
+            <uni-icons class="action-icon" :type="memory.isPinned ? 'star-filled' : 'star'" size="16" :color="memory.isPinned ? '#FFD700' : '#666'"></uni-icons>
             <text class="action-text">{{ memory.isPinned ? '取消置顶' : '置顶记忆' }}</text>
           </view>
           <view class="action-item" @click="copyContent">
-            <text class="action-icon">📋</text>
+            <uni-icons class="action-icon" type="copy" size="16" color="#666"></uni-icons>
             <text class="action-text">复制内容</text>
           </view>
           <view class="action-item" @click="exportMemory">
-            <text class="action-icon">💾</text>
+            <uni-icons class="action-icon" type="download" size="16" color="#666"></uni-icons>
             <text class="action-text">导出记忆</text>
           </view>
           <view class="action-item" @click="addToFavorites">
-            <text class="action-icon">⭐</text>
+            <uni-icons class="action-icon" type="star" size="16" color="#666"></uni-icons>
             <text class="action-text">添加收藏</text>
           </view>
         </view>
@@ -136,7 +136,7 @@
   <!-- 错误状态 -->
   <view class="error-container" v-if="error">
     <view class="error-content">
-      <text class="error-emoji">😕</text>
+      <uni-icons class="error-emoji" type="close" size="48" color="#ddd"></uni-icons>
       <text class="error-title">记忆不存在</text>
       <text class="error-description">该记忆可能已被删除或不存在</text>
       <button class="error-action-btn" @click="goBack">

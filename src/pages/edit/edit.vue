@@ -6,7 +6,7 @@
       <view class="form-section">
         <view class="section-header">
           <view class="section-title">
-            <text class="title-icon">📝</text>
+            <uni-icons class="title-icon" type="compose" size="14" color="#666"></uni-icons>
             <text class="title-text">标题</text>
             <text class="title-required">*</text>
           </view>
@@ -31,7 +31,7 @@
       <view class="form-section">
         <view class="section-header">
           <view class="section-title">
-            <text class="title-icon">🏷️</text>
+            <uni-icons class="title-icon" type="flag" size="14" color="#666"></uni-icons>
             <text class="title-text">标签</text>
             <text class="title-optional">可选</text>
           </view>
@@ -79,7 +79,7 @@
       <view class="form-section">
         <view class="section-header">
           <view class="section-title">
-            <text class="title-icon">📌</text>
+            <uni-icons class="title-icon" type="star" size="14" color="#666"></uni-icons>
             <text class="title-text">置顶</text>
             <text class="title-optional">可选</text>
           </view>
@@ -100,7 +100,7 @@
       <view class="form-section">
         <view class="section-header">
           <view class="section-title">
-            <text class="title-icon">📄</text>
+            <uni-icons class="title-icon" type="document-text" size="14" color="#666"></uni-icons>
             <text class="title-text">内容</text>
             <text class="title-required">*</text>
           </view>
@@ -124,19 +124,19 @@
         <!-- 内容工具栏 -->
         <view class="content-toolbar">
           <view class="toolbar-item" @click="insertTemplate('diary')">
-            <text class="toolbar-icon">📔</text>
+            <uni-icons class="toolbar-icon" type="calendar" size="16" color="#666"></uni-icons>
             <text class="toolbar-text">日记</text>
           </view>
           <view class="toolbar-item" @click="insertTemplate('note')">
-            <text class="toolbar-icon">📋</text>
+            <uni-icons class="toolbar-icon" type="color" size="16" color="#666"></uni-icons>
             <text class="toolbar-text">笔记</text>
           </view>
           <view class="toolbar-item" @click="insertTemplate('idea')">
-            <text class="toolbar-icon">💡</text>
+            <uni-icons class="toolbar-icon" type="eye" size="16" color="#666"></uni-icons>
             <text class="toolbar-text">想法</text>
           </view>
           <view class="toolbar-item" @click="clearContent">
-            <text class="toolbar-icon">🗑️</text>
+            <uni-icons class="toolbar-icon" type="trash" size="16" color="#666"></uni-icons>
             <text class="toolbar-text">清空</text>
           </view>
         </view>
@@ -146,7 +146,7 @@
       <view class="form-section stats-section" v-if="formData.content.length > 0">
         <view class="section-header">
           <view class="section-title">
-            <text class="title-icon">📊</text>
+            <uni-icons class="title-icon" type="stats" size="14" color="#666"></uni-icons>
             <text class="title-text">统计</text>
           </view>
         </view>
@@ -183,7 +183,7 @@
     <view class="confirm-overlay" v-if="showConfirm" @click="hideConfirm">
       <view class="confirm-panel" @click.stop>
         <view class="confirm-header">
-          <text class="confirm-icon">💾</text>
+          <uni-icons class="confirm-icon" type="download" size="24" color="#4A90E2"></uni-icons>
           <text class="confirm-title">确认保存</text>
         </view>
         <view class="confirm-content">
