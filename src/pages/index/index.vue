@@ -102,49 +102,118 @@
         <text class="list-count">{{ filteredMemories.length }} 条</text>
       </view>
 
-      <!-- 记忆卡片 -->
-      <view 
-        class="memory-card" 
-        v-for="memory in filteredMemories" 
-        :key="memory.id"
-        @click="goToDetail(memory.id)"
-      >
-        <view class="card-header">
-          <view class="card-title-section">
-            <text class="memory-title">{{ memory.title }}</text>
-            <view class="memory-meta">
-              <text class="memory-time">{{ formatTime(memory.updateTime) }}</text>
-              <text class="memory-date">{{ formatDate(memory.updateTime) }}</text>
+      <!-- 置顶记忆分组 -->
+      <view v-if="pinnedMemories.length > 0">
+        <!-- <view class="section-header">
+          <text class="section-title">📌 置顶记忆</text>
+          <text class="section-count">{{ pinnedMemories.length }} 条</text>
+        </view> -->
+        
+        <!-- 置顶记忆卡片 -->
+        <view
+          class="memory-card pinned"
+          v-for="memory in pinnedMemories"
+          :key="memory.id"
+          @click="goToDetail(memory.id)"
+        >
+          <view class="card-header">
+            <view class="card-title-section">
+              <text class="memory-title">{{ memory.title }}</text>
+              <view class="memory-meta">
+                <text class="memory-time">{{ formatTime(memory.updateTime) }}</text>
+                <text class="memory-date">{{ formatDate(memory.updateTime) }}</text>
+              </view>
+            </view>
+            <view class="card-indicator">
+              <view
+                class="pin-indicator"
+                @click.stop="togglePin(memory.id)"
+              >
+                <text class="pin-icon">📌</text>
+              </view>
             </view>
           </view>
-          <view class="card-indicator">
-            <text class="indicator-dot"></text>
+          
+          <view class="card-content">
+            <text class="memory-content">{{ getContentPreview(memory.content) }}</text>
           </view>
-        </view>
-        
-        <view class="card-content">
-          <text class="memory-content">{{ getContentPreview(memory.content) }}</text>
-        </view>
-        
-        <view class="card-footer" v-if="memory.tags && memory.tags.length > 0">
-          <view class="memory-tags">
-            <view 
-              class="memory-tag" 
-              v-for="tag in memory.tags.slice(0, 3)" 
-              :key="tag"
-            >
-              {{ tag }}
-            </view>
-            <view 
-              class="more-tags" 
-              v-if="memory.tags.length > 3"
-            >
-              +{{ memory.tags.length - 3 }}
+          
+          <view class="card-footer" v-if="memory.tags && memory.tags.length > 0">
+            <view class="memory-tags">
+              <view
+                class="memory-tag"
+                v-for="tag in memory.tags.slice(0, 3)"
+                :key="tag"
+              >
+                {{ tag }}
+              </view>
+              <view
+                class="more-tags"
+                v-if="memory.tags.length > 3"
+              >
+                +{{ memory.tags.length - 3 }}
+              </view>
             </view>
           </view>
         </view>
       </view>
-      
+
+      <!-- 普通记忆分组 -->
+      <view v-if="regularMemories.length > 0">
+        <!-- <view class="section-header">
+          <text class="section-title">📝 普通记忆</text>
+          <text class="section-count">{{ regularMemories.length }} 条</text>
+        </view> -->
+        
+        <!-- 普通记忆卡片 -->
+        <view
+          class="memory-card"
+          v-for="memory in regularMemories"
+          :key="memory.id"
+          @click="goToDetail(memory.id)"
+        >
+          <view class="card-header">
+            <view class="card-title-section">
+              <text class="memory-title">{{ memory.title }}</text>
+              <view class="memory-meta">
+                <text class="memory-time">{{ formatTime(memory.updateTime) }}</text>
+                <text class="memory-date">{{ formatDate(memory.updateTime) }}</text>
+              </view>
+            </view>
+            <view class="card-indicator">
+              <view
+                class="pin-button"
+                @click.stop="togglePin(memory.id)"
+              >
+                <text class="pin-icon">📍</text>
+              </view>
+            </view>
+          </view>
+          
+          <view class="card-content">
+            <text class="memory-content">{{ getContentPreview(memory.content) }}</text>
+          </view>
+          
+          <view class="card-footer" v-if="memory.tags && memory.tags.length > 0">
+            <view class="memory-tags">
+              <view
+                class="memory-tag"
+                v-for="tag in memory.tags.slice(0, 3)"
+                :key="tag"
+              >
+                {{ tag }}
+              </view>
+              <view
+                class="more-tags"
+                v-if="memory.tags.length > 3"
+              >
+                +{{ memory.tags.length - 3 }}
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
       <!-- 空状态 -->
       <view class="empty-state" v-if="filteredMemories.length === 0">
         <view class="empty-illustration">
@@ -196,7 +265,7 @@ export default {
       
       // 标签筛选
       if (activeTag.value) {
-        memories = memories.filter(memory => 
+        memories = memories.filter(memory =>
           memory.tags && memory.tags.includes(activeTag.value)
         );
       }
@@ -207,6 +276,16 @@ export default {
       }
       
       return memories;
+    });
+
+    // 置顶记忆
+    const pinnedMemories = computed(() => {
+      return filteredMemories.value.filter(memory => memory.isPinned);
+    });
+
+    // 普通记忆
+    const regularMemories = computed(() => {
+      return filteredMemories.value.filter(memory => !memory.isPinned);
     });
 
     // 方法
@@ -233,6 +312,23 @@ export default {
     const clearFilters = () => {
       activeTag.value = '';
       searchKeyword.value = '';
+    };
+
+    const togglePin = async (id) => {
+      try {
+        const memory = await memoryStore.togglePin(id);
+        if (memory) {
+          uni.showToast({
+            title: memory.isPinned ? '已置顶' : '已取消置顶',
+            icon: 'success'
+          });
+        }
+      } catch (error) {
+        uni.showToast({
+          title: '操作失败',
+          icon: 'error'
+        });
+      }
     };
 
     const goToDetail = (id) => {
@@ -317,6 +413,8 @@ export default {
       activeTag,
       allTags,
       filteredMemories,
+      pinnedMemories,
+      regularMemories,
       memoryStore,
       handleSearch,
       clearSearch,
@@ -325,6 +423,7 @@ export default {
       clearFilters,
       goToDetail,
       goToAdd,
+      togglePin,
       formatTime,
       formatDate,
       getContentPreview,
@@ -629,6 +728,32 @@ export default {
   border-radius: 50rpx;
 }
 
+/* ==================== 分组标题 ==================== */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 32rpx 0 24rpx;
+  padding: 0 16rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.section-count {
+  font-size: 22rpx;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 6rpx 16rpx;
+  border-radius: 50rpx;
+}
+
 /* ==================== 记忆卡片 ==================== */
 .memory-card {
   background: #ffffff;
@@ -640,6 +765,45 @@ export default {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+}
+
+.memory-card.pinned {
+  background: linear-gradient(135deg, #fff9e6 0%, #ffffff 100%);
+  border-color: rgba(255, 193, 7, 0.3);
+  box-shadow: 0 4rpx 6rpx -1rpx rgba(255, 193, 7, 0.1), 0 2rpx 4rpx -1rpx rgba(0, 0, 0, 0.06);
+  position: relative;
+}
+
+.memory-card.pinned::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6rpx;
+  background: linear-gradient(90deg, #ffc107 0%, #ff9800 100%);
+  border-radius: 24rpx 24rpx 0 0;
+}
+
+/* .memory-card.pinned:first-of-type {
+  box-shadow: 0 8rpx 12rpx -2rpx rgba(255, 193, 7, 0.15), 0 4rpx 8rpx -2rpx rgba(0, 0, 0, 0.08);
+  transform: scale(1.02);
+  margin-bottom: 24rpx;
+}
+
+.memory-card.pinned:not(:first-of-type) {
+  margin-bottom: 24rpx;
+  opacity: 0.95;
+} */
+
+.memory-card.pinned:not(:first-of-type)::before {
+  content: '';
+  position: absolute;
+  top: -12rpx;
+  left: 32rpx;
+  right: 32rpx;
+  height: 1rpx;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 193, 7, 0.3) 20%, rgba(255, 193, 7, 0.3) 80%, transparent 100%);
 }
 
 .memory-card:hover {
@@ -701,8 +865,8 @@ export default {
 }
 
 .card-indicator {
-  width: 24rpx;
-  height: 24rpx;
+  width: 48rpx;
+  height: 48rpx;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -714,6 +878,48 @@ export default {
   background: #5b8dee;
   border-radius: 50rpx;
   opacity: 0.6;
+}
+
+.pin-indicator,
+.pin-button {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50rpx;
+  transition: all 0.2s;
+}
+
+.pin-indicator {
+  background: rgba(255, 193, 7, 0.1);
+}
+
+.pin-button {
+  background: rgba(91, 141, 238, 0.1);
+}
+
+.pin-indicator:hover,
+.pin-button:hover {
+  transform: scale(1.1);
+}
+
+.pin-indicator:active,
+.pin-button:active {
+  transform: scale(0.95);
+}
+
+.pin-icon {
+  font-size: 24rpx;
+  line-height: 1;
+}
+
+.pin-indicator .pin-icon {
+  color: #ffc107;
+}
+
+.pin-button .pin-icon {
+  color: #5b8dee;
 }
 
 .card-content {

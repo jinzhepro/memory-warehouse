@@ -3,9 +3,14 @@
     <!-- 记忆详情卡片 -->
     <view class="memory-detail-card">
       <!-- 卡片头部 -->
-      <view class="card-header">
+      <view class="card-header" :class="{ 'pinned-header': memory.isPinned }">
         <view class="header-content">
-          <text class="memory-title">{{ memory.title }}</text>
+          <view class="title-row">
+            <text class="memory-title">{{ memory.title }}</text>
+            <view class="pin-badge" v-if="memory.isPinned">
+              <text class="pin-badge-text">📌 置顶</text>
+            </view>
+          </view>
           <view class="memory-meta">
             <view class="meta-item">
               <text class="meta-icon">🕐</text>
@@ -99,6 +104,10 @@
           </view>
         </view>
         <view class="action-list">
+          <view class="action-item" @click="togglePin">
+            <text class="action-icon">{{ memory.isPinned ? '📌' : '📍' }}</text>
+            <text class="action-text">{{ memory.isPinned ? '取消置顶' : '置顶记忆' }}</text>
+          </view>
           <view class="action-item" @click="copyContent">
             <text class="action-icon">📋</text>
             <text class="action-text">复制内容</text>
@@ -278,6 +287,27 @@ export default {
       });
     };
 
+    const togglePin = async () => {
+      if (!memory.value) return;
+      
+      try {
+        const updatedMemory = await memoryStore.togglePin(memoryId.value);
+        if (updatedMemory) {
+          memory.value = updatedMemory;
+          uni.showToast({
+            title: updatedMemory.isPinned ? '已置顶' : '已取消置顶',
+            icon: 'success'
+          });
+        }
+      } catch (error) {
+        uni.showToast({
+          title: '操作失败',
+          icon: 'error'
+        });
+      }
+      hideMoreActions();
+    };
+
     const addToFavorites = () => {
       // 这里可以实现收藏功能
       uni.showToast({
@@ -338,6 +368,7 @@ export default {
       copyContent,
       exportMemory,
       addToFavorites,
+      togglePin,
       searchByTag,
       formatDateTime,
       formatTime,
@@ -374,17 +405,44 @@ export default {
   color: #ffffff;
 }
 
+.card-header.pinned-header {
+  background: linear-gradient(135deg, #ffc107 0%, #ffca28 100%);
+}
+
 .header-content {
   position: relative;
   z-index: 2;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 24rpx;
 }
 
 .memory-title {
   font-size: 40rpx;
   font-weight: 700;
   line-height: 1.3;
-  margin-bottom: 24rpx;
   text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
+  flex: 1;
+}
+
+.pin-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8rpx 16rpx;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50rpx;
+  backdrop-filter: blur(10rpx);
+}
+
+.pin-badge-text {
+  font-size: 20rpx;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 0 1rpx 2rpx rgba(0, 0, 0, 0.1);
 }
 
 .memory-meta {

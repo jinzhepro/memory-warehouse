@@ -26,6 +26,10 @@ export const useMemoryStore = defineStore("memory", () => {
 
   const sortedMemories = computed(() => {
     return [...memories.value].sort((a, b) => {
+      // 首先按置顶状态排序
+      if (a.isPinned && !b.isPinned) return -1;
+      if (!a.isPinned && b.isPinned) return 1;
+      // 置顶状态相同时，按更新时间排序
       return new Date(b.updateTime) - new Date(a.updateTime);
     });
   });
@@ -71,7 +75,13 @@ export const useMemoryStore = defineStore("memory", () => {
         getStorage(STORAGE_KEYS.TAGS),
       ]);
 
-      memories.value = savedMemories || [];
+      // 处理旧数据兼容性
+      const processedMemories = (savedMemories || []).map((memory) => ({
+        ...memory,
+        isPinned: memory.isPinned || false, // 确保所有记忆都有isPinned字段
+      }));
+
+      memories.value = processedMemories;
       tags.value = savedTags || [];
     } catch (error) {
       console.error("初始化数据失败:", error);
@@ -101,6 +111,7 @@ export const useMemoryStore = defineStore("memory", () => {
       title: memoryData.title || "未命名记忆",
       content: memoryData.content || "",
       tags: memoryData.tags || [],
+      isPinned: memoryData.isPinned || false, // 新增置顶字段
       createTime: new Date().toISOString(),
       updateTime: new Date().toISOString(),
     };
@@ -164,6 +175,47 @@ export const useMemoryStore = defineStore("memory", () => {
     }
   }
 
+  // 切换记忆置顶状态
+  async function togglePin(id) {
+    const memory = memories.value.find((m) => m.id === id);
+    if (memory) {
+      memory.isPinned = !memory.isPinned;
+      memory.updateTime = new Date().toISOString();
+      await saveToStorage();
+      return memory;
+    }
+    return null;
+  }
+
+  // 置顶记忆
+  async function pinMemory(id) {
+    const memory = memories.value.find((m) => m.id === id);
+    if (memory && !memory.isPinned) {
+      memory.isPinned = true;
+      memory.updateTime = new Date().toISOString();
+      await saveToStorage();
+      return memory;
+    }
+    return null;
+  }
+
+  // 取消置顶记忆
+  async function unpinMemory(id) {
+    const memory = memories.value.find((m) => m.id === id);
+    if (memory && memory.isPinned) {
+      memory.isPinned = false;
+      memory.updateTime = new Date().toISOString();
+      await saveToStorage();
+      return memory;
+    }
+    return null;
+  }
+
+  // 获取所有置顶的记忆
+  const getPinnedMemories = computed(() => {
+    return memories.value.filter((memory) => memory.isPinned);
+  });
+
   return {
     // 状态
     memories,
@@ -174,6 +226,7 @@ export const useMemoryStore = defineStore("memory", () => {
     memoryCount,
     sortedMemories,
     allTags,
+    getPinnedMemories,
 
     // 动作
     initialize,
@@ -185,5 +238,8 @@ export const useMemoryStore = defineStore("memory", () => {
     searchMemories,
     addTag,
     removeTag,
+    togglePin,
+    pinMemory,
+    unpinMemory,
   };
 });

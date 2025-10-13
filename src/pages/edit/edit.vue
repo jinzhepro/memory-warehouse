@@ -75,6 +75,27 @@
         </view>
       </view>
 
+      <!-- 置顶选项 -->
+      <view class="form-section">
+        <view class="section-header">
+          <view class="section-title">
+            <text class="title-icon">📌</text>
+            <text class="title-text">置顶</text>
+            <text class="title-optional">可选</text>
+          </view>
+        </view>
+        <view class="pin-option">
+          <view class="pin-description">
+            <text class="pin-desc-text">置顶的记忆将始终显示在列表顶部</text>
+          </view>
+          <view class="pin-switch" @click="togglePin">
+            <view class="switch-track" :class="{ active: formData.isPinned }">
+              <view class="switch-thumb" :class="{ active: formData.isPinned }"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+
       <!-- 内容输入区域 -->
       <view class="form-section">
         <view class="section-header">
@@ -196,7 +217,8 @@ export default {
     const formData = reactive({
       title: '',
       content: '',
-      tags: []
+      tags: [],
+      isPinned: false
     });
 
     const errors = reactive({
@@ -231,6 +253,7 @@ export default {
           formData.title = memory.title;
           formData.content = memory.content;
           formData.tags = memory.tags || [];
+          formData.isPinned = memory.isPinned || false;
         }
       }
     });
@@ -280,6 +303,11 @@ export default {
       if (!formData.tags.includes(tag) && formData.tags.length < 10) {
         formData.tags.push(tag);
       }
+    };
+
+    // 置顶相关方法
+    const togglePin = () => {
+      formData.isPinned = !formData.isPinned;
     };
 
     // 内容相关方法
@@ -332,7 +360,8 @@ export default {
         const memoryData = {
           title: formData.title.trim(),
           content: formData.content.trim(),
-          tags: [...formData.tags]
+          tags: [...formData.tags],
+          isPinned: formData.isPinned
         };
 
         if (isEditing.value) {
@@ -396,6 +425,7 @@ export default {
       addTag,
       removeTag,
       addSuggestedTag,
+      togglePin,
       insertTemplate,
       clearContent,
       getWordCount,
@@ -697,6 +727,65 @@ export default {
   color: #ffffff;
   border-color: #5b8dee;
   transform: translateY(-2rpx);
+}
+
+/* ==================== 置顶选项 ==================== */
+.pin-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx;
+  background: #f8fafc;
+  border-radius: 16rpx;
+  border: 2rpx solid #e2e8f0;
+  transition: all 0.2s;
+}
+
+.pin-description {
+  flex: 1;
+}
+
+.pin-desc-text {
+  font-size: 26rpx;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.pin-switch {
+  width: 100rpx;
+  height: 52rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.switch-track {
+  width: 100%;
+  height: 52rpx;
+  background: #e2e8f0;
+  border-radius: 50rpx;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.switch-track.active {
+  background: linear-gradient(135deg, #ffc107 0%, #ffca28 100%);
+}
+
+.switch-thumb {
+  width: 44rpx;
+  height: 44rpx;
+  background: #ffffff;
+  border-radius: 50rpx;
+  position: absolute;
+  top: 4rpx;
+  left: 4rpx;
+  transition: all 0.3s;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
+}
+
+.switch-thumb.active {
+  transform: translateX(48rpx);
 }
 
 /* ==================== 内容工具栏 ==================== */
