@@ -7,6 +7,10 @@
         <text class="app-title">记忆仓库</text>
         <text class="app-subtitle">记录美好时光</text>
       </view>
+      <view class="privacy-notice">
+        <uni-icons class="privacy-icon" type="locked" size="14" color="#5b8dee"></uni-icons>
+        <text class="privacy-text">您的所有数据均存储在本地，保护您的隐私安全</text>
+      </view>
     </view>
 
     <!-- 搜索区域 -->
@@ -488,6 +492,79 @@ export default {
   font-size: 28rpx;
   color: rgba(255, 255, 255, 0.9);
   font-weight: 300;
+}
+
+.privacy-notice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  margin: 32rpx auto;
+  padding: 20rpx 32rpx;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50rpx;
+  backdrop-filter: blur(10rpx);
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1rpx solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 0.8s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.privacy-notice::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 3s infinite;
+}
+
+.privacy-icon {
+  font-size: 28rpx;
+  animation: pulse 2s infinite;
+}
+
+.privacy-text {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 500;
+  letter-spacing: 1rpx;
+  text-shadow: 0 1rpx 2rpx rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20rpx);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
 }
 
 /* ==================== 搜索区域 ==================== */
